@@ -9,7 +9,6 @@
     "compressorjs": "^1.2.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
-    "libgif": "^0.0.3",
     "socket.io": "^4.6.1"
   },
   "devDependencies": {
