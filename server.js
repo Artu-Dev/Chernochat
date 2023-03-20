@@ -4,7 +4,7 @@ const { writeFile } = require("fs");
 const app = express();
 const http = require("http");
 const server = http.createServer(app);
-const port = -1;
+const port = process.env.PORT || 4000;
 const io = require("socket.io")(server, {
   cors: {
     origin: "http://localhost:4000",
