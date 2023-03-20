@@ -72,7 +72,6 @@ function printChat(type, msg, username, time, color) {
 }
 
 function printIstyping(typing, user) {
-  console.log(user);
   isTypingBar.textContent = `${user} está digitando...`;
   if(typing) {
     isTypingBar.classList.remove('typeHide');

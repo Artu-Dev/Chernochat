@@ -4,6 +4,7 @@ const { writeFile } = require("fs");
 const app = express();
 const http = require("http");
 const server = http.createServer(app);
+const port = process.env.PORT || 4000;
 const io = require("socket.io")(server, {
   cors: {
     origin: "http://localhost:4000",
@@ -77,8 +78,8 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => disconnect(socket, username));
 });
 
-server.listen(4000, () => {
-  console.log("ouvindo na porta 4000");
+server.listen(port, () => {
+  console.log("ouvindo na porta "+port);
 });
 
 function disconnect(socket, username) {
