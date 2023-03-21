@@ -11,6 +11,8 @@ const io = require("socket.io")(server, {
   },
 });
 
+console.log(URL);
+
 app.use(express.static(path.join(__dirname, "public")));
 // app.use((req, res, next) => {
 //   if (req.url.endsWith(".js")) {
