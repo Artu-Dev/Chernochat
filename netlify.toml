@@ -6,6 +6,3 @@
   from = "/*"
   to = "public/index.html"
   status = 200
-
-[build.environment]
-  URL = "https://celebrated-kashata-7d0682.netlify.app/"
