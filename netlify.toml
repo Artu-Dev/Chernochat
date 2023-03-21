@@ -1,10 +1,10 @@
 [build]
-  command = "npm run build"
+  command = "npm start"
   publish = "public"
 
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "public/index.html"
   status = 200
 
 [build.environment]
