@@ -16,7 +16,7 @@ const options = {
 function onUsernameSelection(username) {
   const color = generateColor();
   socket.auth = { username, color };
-  socket.connect(URL);
+  socket.connect();
 }
 
 function destroyed() {
