@@ -1,3 +1,12 @@
 [build]
+  command = "npm run build"
+  publish = "dist"
+
+[dev]
   command = "npm start"
-  publish = "public"
+
+[[redirects]]
+  from = "/socket.io/*"
+  to = "https://celebrated-kashata-7d0682.netlify.app/:splat"
+  status = 200
+  force = true

@@ -62,7 +62,6 @@ io.on("connection", (socket) => {
   const username = socket.handshake.auth.username;
   const color = socket.handshake.auth.color;
 
-  console.log("usuario conectado");
   socket.broadcast.emit("connected", `${username} conectado`);
 
   socket.on("chat message", (msg) =>
@@ -74,7 +73,6 @@ io.on("connection", (socket) => {
   );
 
   socket.on('isTyping', (isTyping) => {
-    console.log(isTyping);
     socket.broadcast.emit('isTyping', {isTyping, username});
   })
 

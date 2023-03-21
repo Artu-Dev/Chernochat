@@ -12,6 +12,11 @@
   --yellow: #F8F988;
 }
 
+::selection {
+  background: var(--purple);
+  color: var(--white);
+}
+
 * {
   margin: 0;
   padding: 0;

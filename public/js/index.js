@@ -5,7 +5,7 @@ const textInput = document.querySelector("#inputText");
 const submitBtn = document.querySelector("#submitBtn");
 const isTypingBar = document.querySelector(".isTypingBar");
 const URL = "https://celebrated-kashata-7d0682.netlify.app/";
-const socket = io(URL, { autoConnect: false });
+const socket = io({ autoConnect: false });
 const options = {
   quality: 0.6,
   maxWidth: 800,
