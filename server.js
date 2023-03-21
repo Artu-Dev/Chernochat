@@ -1,23 +1,23 @@
 const express = require("express");
-const path = require("path");
-const { writeFile } = require("fs");
 const app = express();
 const http = require("http");
+const path = require("path");
+const { writeFile } = require("fs");
 const server = http.createServer(app);
-const port = process.env.PORT || 4000;
+const URL = process.env.URL;
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:4000",
+    origin: URL || "http://localhost:3000",
   },
 });
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use((req, res, next) => {
-  if (req.url.endsWith(".js")) {
-    res.set("Content-Type", "application/javascript");
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   if (req.url.endsWith(".js")) {
+//     res.set("Content-Type", "application/javascript");
+//   }
+//   next();
+// });
 
 app.set("views", path.join(__dirname, "public"));
 app.engine("html", require("ejs").renderFile);
@@ -48,6 +48,7 @@ io.use((socket, next) => {
 });
 
 io.on("connection", (socket) => {
+  console.log('usuario conectado');
   const usersON = [];
   for (let [id, socket] of io.of("/").sockets) {
     usersON.push({
@@ -78,6 +79,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => disconnect(socket, username));
 });
 
+const port = process.env.PORT || 3000;
 server.listen(port, () => {
   console.log("ouvindo na porta "+port);
 });

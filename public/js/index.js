@@ -4,7 +4,7 @@ const imgInput = document.querySelector("#inputImg");
 const textInput = document.querySelector("#inputText");
 const submitBtn = document.querySelector("#submitBtn");
 const isTypingBar = document.querySelector(".isTypingBar");
-const URL = "http://localhost:4000";
+const URL = "https://celebrated-kashata-7d0682.netlify.app/";
 const socket = io(URL, { autoConnect: false });
 const options = {
   quality: 0.6,
@@ -104,6 +104,15 @@ function compress(image) {
   });
 }
 
+function gif(gif) {
+  if(gif.size > 1000000) {
+    alert("Oh nao, Imagem Muito grande!")
+    imgInput.value = '';
+    return
+  }
+  uploadImg(gif);
+}
+
 function uploadImg(result) {
   socket.emit("imageUpload", result, (status) => {});
   imgInput.value = null;
@@ -127,7 +136,7 @@ form.addEventListener("submit", (e) => {
 
   if (imgInput.value) {
     if(imgInput.files[0].type === 'image/gif'){
-      uploadImg(imgInput.files[0]);
+      gif(imgInput.files[0]);
       return;
     }
     compress(imgInput.files[0]);
