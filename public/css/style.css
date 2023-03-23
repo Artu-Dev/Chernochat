@@ -214,7 +214,8 @@ section {
 
 .messages .img {
   margin: .5rem;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   border-radius: 1.5rem;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
 }
@@ -233,4 +234,35 @@ section {
 .messages .disconnect {
   background: var(--gray);
   color: var(--pink);
+}
+
+@media screen and (max-width: 530px) {
+  #messageForm {
+    padding: 1rem .3rem;
+  }
+  
+  .messages li.you,
+  .messages li.stranger {
+    max-width: 90%;
+    margin: 0 .5rem;
+    font-size: 1rem;
+  }
+
+  .messages .stranger .username {
+    font-size: .7rem;
+  }
+  .messages li .time {
+    font-size: .6rem;
+  }
+  form #submitBtn,
+  form .imgLabel {
+    padding: 1rem;
+  }
+  form .imgLabel {
+    padding: 1rem;
+  }
+  form #inputText {
+    font-size: 1rem;
+    padding: 0 .5rem;
+  }
 }
