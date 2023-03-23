@@ -1,0 +1,17 @@
+.error-box {
+  background: #ff4d4d;
+  color: var(--black);
+  font-size: 1.2rem;
+  font-weight: 700;
+  position: fixed;
+  top: 10%;
+  padding: .5rem 2.5rem;
+  border-radius: .3rem;
+  pointer-events: none;
+  transition: ease .4s;
+  opacity: 1;
+}
+
+.hide {
+  opacity: 0;
+}

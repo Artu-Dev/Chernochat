@@ -1,53 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChernoChat</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/username.css" />
+    <link rel="stylesheet" href="css/erro.css" />
+  </head>
+  <body>
+    <div class="error-box hide">Erro</div>
+    <h1>Cherno<span>Chat</span></h1>
+    <main>
+      <form action="#" id="userForm">
+        <label for="iUsername">
+          <h1>Digite um apelido</h1>
+        </label>
+        <input type="text" placeholder="Seu Apelido" id="iUsername" required />
+        <button type="submit">Entrar</button>
+      </form>
+    </main>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <title>ChernoChat</title>
-  <!-- Font awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
 
-  <!--Google fonts-->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700;800;900&display=swap"
-    rel="stylesheet">
-
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
-
-<body>
-  <header>
-
-  </header>
-  <main>
-    <section id="messagesArea">
-      <ul class="messages">
-      </ul>
-    </section>
-    <form id="messageForm" autocomplete="off" action="">
-      <div class="isTypingBar typeHide">
-        <p><span class="user">Usuario</span> está digitando...</p>
-      </div>
-      <label for="inputImg" class="imgLabel">
-        <i class="fa-solid fa-image"></i>
-        <input id="inputImg" type="file" size="10" name="uploadImg" accept=".jpg, .png, .jpeg, .gif">
-      </label>
-      <input id="inputText" type="text" placeholder="Digite sua Mensagem" name="inputText">
-      <button id="submitBtn">Enviar <i class="fa-solid fa-paper-plane"></i></button>
-    </form>
-  </main>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js" integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <!-- <script src="/socket.io/socket.io.js" type="module"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js" integrity="sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-  <script src="js/index.js" type="module"></script>
-</body>
-
+    <script src="js/username.js"></script>
+  </body>
 </html>

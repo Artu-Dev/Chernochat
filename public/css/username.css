@@ -1,0 +1,85 @@
+:root {
+  --purple: #865DFF;
+  --black: #191825;
+  --white: #f0f8ff;
+  --gray: #312e47;
+  --yellow: #F8F988;
+}
+body {
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: var(--white);
+  font-size: 3rem;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+  position: relative;
+  bottom: 2.5rem;
+}
+
+h1 span {
+  color: var(--purple);
+}
+
+main{
+  max-width: 600px;
+  text-align: center;
+}
+
+form {
+  background: var(--gray);
+  border-radius: 1rem;
+  padding: 3rem 1rem;
+  margin: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+form h1 {
+  font-size: 1.7rem;
+  bottom: 0;
+}
+
+form input {
+  max-width: 80%;
+  padding: .8rem 1.2rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  outline: none;
+  border: none;
+  color: var(--gray);
+  border-radius: .3rem;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.err-input {
+  outline: solid 2px #ff4d4d;
+}
+
+form input:focus {
+  outline: solid 2px var(--purple);
+}
+
+form button {
+  border: none;
+  padding: .8rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 1rem;
+  background: var(--purple);
+  color: var(--white);
+  transition: ease .3s;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: var(--yellow);
+  color: var(--black);
+  border-radius: 1rem 0 1rem 1rem;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+}

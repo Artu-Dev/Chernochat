@@ -10,14 +10,14 @@ const io = require("socket.io")(server, {
     origin: URL || "http://localhost:3000",
   },
 });
+let userData = {};
 
 console.log(URL);
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use((req, res, next) => {
-  if (req.url.endsWith(".js")) {
-    res.set("Content-Type", "application/javascript");
-  }
+
+app.use("*.js", (req, res, next) => {
+  res.set("Content-Type", "application/javascript");
   next();
 });
 
@@ -37,59 +37,51 @@ io.use((socket, next) => {
       return next(new Error(msg));
     },
   };
-  if (!username) {
-    error.send("Apelido invalido");
-  } else if (username.length < 3) {
-    error.send("Apelido muito curtinho");
-  } else if (username.length > 18) {
-    error.send("Apelido muito looongo");
-  }
 
-  socket.username = [username, color];
-  next();
+  const userinvalid = validateUsername(username, error);
+  if (userinvalid) {
+    return error.send(userinvalid);
+  } else {
+    userData[socket.id] = { username, color };
+    next();
+  }
 });
 
 io.on("connection", (socket) => {
-  console.log('usuario conectado');
-  const usersON = [];
-  for (let [id, socket] of io.of("/").sockets) {
-    usersON.push({
-      userID: id,
-      username: socket.username[0],
-    });
-  }
+  socket.emit("connection");
+  console.log("usuario conectado: "+socket.id);
 
   const username = socket.handshake.auth.username;
   const color = socket.handshake.auth.color;
 
   socket.broadcast.emit("connected", `${username} conectado`);
 
-  socket.on("chat message", (msg) =>
-    chatMessage(socket, msg, { username, color })
+  socket.on("chat message", (msg, time) =>
+    chatMessage(socket, msg, time, { username, color })
   );
 
-  socket.on("imageUpload", (image, callback) =>
-    imageUpload(socket, image, callback, { username, color })
+  socket.on("imageUpload", (image, time, callback) =>
+    imageUpload(socket, image, time, callback, { username, color })
   );
 
-  socket.on('isTyping', (isTyping) => {
-    socket.broadcast.emit('isTyping', {isTyping, username});
-  })
+  socket.on("isTyping", (isTyping) => {
+    socket.broadcast.emit("isTyping", { isTyping, username });
+  });
 
   socket.on("disconnect", () => disconnect(socket, username));
 });
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
-  console.log("ouvindo na porta "+port);
+  console.log("ouvindo na porta " + port);
 });
 
 function disconnect(socket, username) {
   socket.broadcast.emit("logOut", `${username} desconectado`);
   console.log("a user disconnected");
+  delete userData[socket.id];
 }
-function chatMessage(socket, msg, { username, color }) {
-  const time = new Date().toLocaleTimeString();
+function chatMessage(socket, msg, time, { username, color }) {
   socket.broadcast.emit("chat message", {
     type: "stranger",
     msg: msg,
@@ -97,10 +89,14 @@ function chatMessage(socket, msg, { username, color }) {
     time: time,
     color: color,
   });
-  socket.emit("chat message", { type: "you", msg: msg, nick: username });
+  socket.emit("chat message", {
+    type: "you",
+    msg: msg,
+    time: time,
+    nick: username,
+  });
 }
-function imageUpload(socket, image, callback, { username, color }) {
-  const time = new Date().toLocaleTimeString();
+function imageUpload(socket, image, time, callback, { username, color }) {
   writeFile("public/tmp/imageUpload", image, (err) => {
     callback({ message: err ? "failure" : "success" });
   });
@@ -115,6 +111,27 @@ function imageUpload(socket, image, callback, { username, color }) {
   socket.emit("imageUpload", {
     src: image.toString("base64"),
     type: "you",
+    time: time,
     nick: username,
   });
+}
+function validateUsername(username) {
+  const existingUser = Object.values(userData).find(
+    (user) => user.username === username
+  );
+
+  if (!username) {
+    return "Apelido invalido";
+  }
+  if (existingUser) {
+    return "Este apelido já está em uso.";
+  }
+  if (username.length < 3) {
+    return "Apelido muito curtinho";
+  }
+  if (username.length > 18) {
+    return "Apelido muito looongo";
+  }
+
+  return null; //se o username for valido, retorna null
 }

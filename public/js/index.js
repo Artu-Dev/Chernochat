@@ -4,8 +4,8 @@ const imgInput = document.querySelector("#inputImg");
 const textInput = document.querySelector("#inputText");
 const submitBtn = document.querySelector("#submitBtn");
 const isTypingBar = document.querySelector(".isTypingBar");
-const URL = "https://celebrated-kashata-7d0682.netlify.app/";
-const socket = io({ autoConnect: false });
+
+const socket = io();
 const options = {
   quality: 0.6,
   maxWidth: 800,
@@ -13,32 +13,11 @@ const options = {
   convertSize: 1000000,
 };
 
-function onUsernameSelection(username) {
-  const color = generateColor();
-  socket.auth = { username, color };
-  socket.connect();
-}
+const urlParams = new URLSearchParams(window.location.search);
+const username = urlParams.get("username");
+const color = urlParams.get("color");
 
-function destroyed() {
-  socket.off("connect_error");
-}
-
-function getUsername() {
-  const username = window.prompt("Digite um apelido");
-
-  if (!username) {
-    alert("Apelido invalido");
-    return getUsername();
-  } else if (username.length < 3) {
-    alert("Apelido muito curtinho");
-    return getUsername();
-  } else if (username.length > 18) {
-    alert("Apelido muito looongo");
-    return getUsername();
-  }
-
-  onUsernameSelection(username);
-}
+//-----------------------Functions
 
 function printChat(type, msg, username, time, color) {
   const container = document.createElement("li");
@@ -73,19 +52,11 @@ function printChat(type, msg, username, time, color) {
 
 function printIstyping(typing, user) {
   isTypingBar.textContent = `${user} está digitando...`;
-  if(typing) {
-    isTypingBar.classList.remove('typeHide');
+  if (typing) {
+    isTypingBar.classList.remove("typeHide");
   } else {
-    isTypingBar.classList.add('typeHide');
+    isTypingBar.classList.add("typeHide");
   }
-}
-
-function generateColor() {
-  let color = "";
-  const hue = Math.round(Math.random() * 360);
-  if (hue > 220 && hue < 360) color = `hsl(${hue}deg 100% 26%)`;
-  else color = `hsl(${hue}deg 100% 18.5%)`;
-  return color;
 }
 
 function compress(image) {
@@ -105,37 +76,54 @@ function compress(image) {
 }
 
 function gif(gif) {
-  if(gif.size > 1000000) {
-    alert("Oh nao, Imagem Muito grande!")
-    imgInput.value = '';
-    return
+  if (gif.size > 1000000) {
+    alert("Oh nao, Imagem Muito grande!");
+    imgInput.value = "";
+    return;
   }
   uploadImg(gif);
 }
 
 function uploadImg(result) {
-  socket.emit("imageUpload", result, (status) => {});
+  socket.emit("imageUpload", result, GetTime(), (status) => {});
   imgInput.value = null;
 }
 
 let timer = [];
 function isTyping() {
-  clearTimeout(timer)
+  clearTimeout(timer);
   timer = setTimeout(() => {
-    socket.emit('isTyping', false);
+    socket.emit("isTyping", false);
   }, 1000);
-  socket.emit('isTyping', true);
+  socket.emit("isTyping", true);
 }
 
+function GetTime() {
+  const time = new Date().toLocaleTimeString();
+  return time;
+}
+
+function printError(err) {
+  const errorBox = document.querySelector(".error-box");
+
+  errorBox.textContent = err;
+  errorBox.classList.remove("hide");
+
+  setTimeout(() => {
+    errorBox.classList.add("hide");
+  }, 4000);
+}
+
+// -----------------------Events
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   if (textInput.value) {
-    socket.emit("chat message", textInput.value);
+    socket.emit("chat message", textInput.value, GetTime());
     textInput.value = "";
   }
 
   if (imgInput.value) {
-    if(imgInput.files[0].type === 'image/gif'){
+    if (imgInput.files[0].type === "image/gif") {
       gif(imgInput.files[0]);
       return;
     }
@@ -145,15 +133,10 @@ form.addEventListener("submit", (e) => {
 
 textInput.addEventListener("input", () => {
   isTyping();
-
 });
 
-socket.onAny((event, ...args) => {
-  //console.log(event, args);
-});
-
+//-----------------------socket.io events
 socket.on("chat message", ({ type, msg, nick, time, color }) => {
-  if (!time) time = new Date().toLocaleTimeString();
   printChat(type, msg, nick, time, color);
 });
 
@@ -170,18 +153,23 @@ socket.on("imageUpload", ({ src, type, nick, time }) => {
   img.removeAttribute("width");
   img.src = `data:image/jpg;base64,${src}`;
   img.classList.add("img");
-
-  if (!time) time = new Date().toLocaleTimeString();
   printChat(type, img, nick, time);
 });
 
-socket.on("isTyping", ({isTyping, username}) => {
+socket.on("isTyping", ({ isTyping, username }) => {
   printIstyping(isTyping, username);
-})
-
-socket.on("connect_error", (err) => {
-  alert(err.message);
-  getUsername();
 });
 
-getUsername();
+socket.on("connect_error", (err) => {
+  printError(err);
+  window.location.replace(`./index.html?err=${err.message}`);
+});
+
+// init
+socket.auth = { username, color };
+socket.connect();
+
+const url = new URL(window.location.href);
+url.searchParams.delete("username");
+url.searchParams.delete("color");
+window.history.replaceState(null, "", url);

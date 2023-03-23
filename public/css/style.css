@@ -65,7 +65,7 @@ form .imgLabel {
   border: none;
   border-radius: 2rem;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 700;
   color: var(--white);
   transition: ease .3s;
   text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
@@ -179,7 +179,7 @@ section {
 .messages li .username {
   font-size: .8rem;
   padding-bottom: 0;
-  font-weight: bolder;
+  font-weight: 800;
   text-shadow: 0px 0px 5px rgb(0, 0, 0, 0.2);
   color: var(--purple);
 }
@@ -190,7 +190,7 @@ section {
 
 .messages .stranger .username {
   font-size: .8rem;
-  font-weight: bolder;
+  font-weight: 800;
   color: #c11f1f;
   align-self: self-start;
 }
@@ -226,7 +226,7 @@ section {
   padding: .5rem 1.5rem;
   border-radius: 1rem;
   color: var(--gray);
-  font-weight: bold;
+  font-weight: 700;
   margin: 1rem 0;
 }
 
