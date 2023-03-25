@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Uma plataforma de bate-papo anônimo onde você pode conversar com outras pessoas sem revelar sua identidade. Junte-se a nós agora para uma experiência de bate-papo emocionante e anônima.">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>ChernoChat</title>
     <!-- Font awesome -->
@@ -25,14 +26,25 @@
 
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/erro.css" />
+    <link rel="stylesheet" type="text/css" href="css/replybox.css" />
   </head>
 
   <body>
-    <div class="error-box hide">Erro</div>
+    <div class="error-box hide"></div>
     <main>
       <section id="messagesArea">
-        <ul class="messages"></ul>
+        <ul class="messages">
+        </ul>
       </section>
+
+      <section class="replyBox hide">
+        <div class="replyContent">
+          <i class="fa-solid fa-close"></i>
+          <div class="replyName"></div>
+          <div class="replymsg"></div>
+        </div>
+      </section>
+
       <form id="messageForm" autocomplete="off" action="">
         <div class="isTypingBar typeHide">
           <p><span class="user">Usuario</span> está digitando...</p>

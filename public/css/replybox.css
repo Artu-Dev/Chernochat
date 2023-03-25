@@ -1,0 +1,118 @@
+:root {
+  --purple: #865DFF;
+  --black: #191825;
+  --whiteP: #EAEAEA;
+  --graytransp: #312e47bf;
+  --gray2: #545261;
+  --gray3: #bdbbc9;
+}
+
+.replyBox {
+  background: var(--graytransp);
+  padding: .5rem 1rem;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
+  transition: ease .3s;
+}
+
+.replyContent {
+  background: var(--whiteP);
+  max-width: 100%;
+  min-width: 8rem;
+  padding: .7rem 1rem;
+  border-radius: .5rem;
+  font-size: .8rem;
+  max-height: 8rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.replyContent:has(.replymsg:has(img)) {
+  min-width: 6rem;
+}
+
+.replyName {
+  align-self: flex-start;
+  color: var(--purple);
+  margin: 0;
+  font-weight: 700;
+  margin-bottom: .4rem;
+}
+
+.replymsg {
+  color: var(--gray2);
+  max-height: 4rem;
+  padding-right: 2rem;
+  padding-left: 1rem;
+  line-height: 1rem;
+}
+
+.replymsg:has(img) {
+  padding: 0;
+  align-self: center;
+}
+
+.replymsg .img,
+.ChatReplyMsg .img {
+  margin: 0;
+  max-height: 100%;
+  max-width: 4rem;
+  object-fit: contain;
+  background: #0000007e;
+  border-radius: .3rem;
+}
+
+.fa-close {
+  cursor: pointer;
+  position: absolute;
+  color: var(--gray2);
+  right: 1rem;
+  top: .5rem;
+  font-size: 1.2rem;
+}
+
+.ChatReplyContainer {
+  background: var(--black);
+  min-width: 8rem;
+  width: 100%;
+  max-height: 5rem;
+  border-radius: .5rem;
+  padding: .5rem 1rem;
+  margin:.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.ChatReplyUser {
+  color: var(--purple);
+  background: var(--whiteP);
+  padding: .4rem .8rem;
+  border-radius: 1rem;
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.ChatReplyMsg {
+  padding-left: .5rem;
+  font-size: .75rem;
+  color: var(--gray3);
+  font-weight: 600;
+  max-height: 4rem;
+}
+
+.ChatReplyMsg,
+.replymsg {
+  overflow: hidden;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+
+  white-space: break-spaces;
+  word-wrap: break-word;
+}

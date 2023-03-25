@@ -8,7 +8,7 @@
   --gray: #312e47;
   --gray2: #545261;
 
-  --purple2: #dcd1ff;
+  --purple2: #e8e1ff;
   --yellow: #F8F988;
 }
 
@@ -44,14 +44,16 @@ body {
 }
 
 .isTypingBar {
-  background: var(--gray);
-  color: var(--yellow);
+  background: var(--whiteP);
+  color: var(--black);
+  font-weight: 500;
   text-align: center;
   position: fixed;
   width: 100%;
   padding: .3rem;
   top: 0;
   transition: ease .3s;
+  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.15);
 }
 
 .typeHide {
@@ -135,6 +137,7 @@ section {
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding-bottom: .5rem;
 }
 
 .messages li.you,
@@ -144,23 +147,26 @@ section {
   margin-bottom: 2rem;
   align-self: flex-end;
   padding: .9rem;
-  border-radius: 1.6rem;
+  border-radius: 1rem;
   border-top-right-radius: 0;
   font-size: 1.2rem;
   max-width: 65%;
-  min-width: 5rem;
+  min-width: 4rem;
   font-weight: 500;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
 }
 
-.messages li.you p,
-.messages li.stranger p {
-  max-width: 100%;
+.messages li.you > p,
+.messages li.stranger > p {
+  max-width: calc(100% - 1rem);
+  white-space: break-spaces;
   word-wrap: break-word;
   align-self: flex-start;
+  margin: 0 1rem;
 }
 
 .messages li.stranger:has(+li.stranger),
@@ -169,7 +175,7 @@ section {
 }
 
 .messages li.stranger {
-  border-radius: 1.6rem;
+  border-radius: 1rem;
   border-top-left-radius: 0;
   align-self: flex-start;
   background: var(--purple2);
@@ -193,6 +199,7 @@ section {
   font-weight: 800;
   color: #c11f1f;
   align-self: self-start;
+  padding-right: 1rem;
 }
 
 .messages li .time {
@@ -210,6 +217,26 @@ section {
 
 .messages .stranger .time {
   align-self: flex-end;
+}
+
+.messages .configButton {
+  position: absolute;
+  right: -2rem;
+  color: var(--whiteP);
+  opacity: .7;
+  cursor: pointer;
+  transition: ease .3s;
+  transform: scaleY(-1);
+}
+
+.messages .configButton:hover {
+  opacity: 1;
+}
+
+.messages li.you .configButton {
+  right: calc(100% + 1rem);
+  transform: scaleY(1);
+  rotate: 180deg;
 }
 
 .messages .img {
@@ -241,14 +268,13 @@ section {
   #messageForm {
     padding: 1rem .3rem;
   }
-  
   .messages li.you,
   .messages li.stranger {
-    max-width: 90%;
+    max-width: 85%;
     margin: 0 .5rem;
+    margin-bottom: 2rem;
     font-size: 1rem;
   }
-
   .messages .stranger .username {
     font-size: .7rem;
   }

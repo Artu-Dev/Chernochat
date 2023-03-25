@@ -56,12 +56,12 @@ io.on("connection", (socket) => {
 
   socket.broadcast.emit("connected", `${username} conectado`);
 
-  socket.on("chat message", (msg, time) =>
-    chatMessage(socket, msg, time, { username, color })
+  socket.on("chat message", (msg, time, replyTarget) =>
+    chatMessage(socket, replyTarget, msg, time, { username, color })
   );
 
-  socket.on("imageUpload", (image, time, callback) =>
-    imageUpload(socket, image, time, callback, { username, color })
+  socket.on("imageUpload", (replyTarget, image, time, callback) =>
+    imageUpload(socket, replyTarget, image, time, callback, { username, color })
   );
 
   socket.on("isTyping", (isTyping) => {
@@ -80,23 +80,27 @@ function disconnect(socket, username) {
   socket.broadcast.emit("logOut", `${username} desconectado`);
   console.log("a user disconnected");
   delete userData[socket.id];
+  console.log(userData);
 }
-function chatMessage(socket, msg, time, { username, color }) {
+function chatMessage(socket, replyTarget, msg, time, { username, color }) {
   socket.broadcast.emit("chat message", {
     type: "stranger",
     msg: msg,
-    nick: username,
     time: time,
     color: color,
+    nick: username,
+    reply: replyTarget,
   });
   socket.emit("chat message", {
     type: "you",
     msg: msg,
     time: time,
     nick: username,
+    color: color,
+    reply: replyTarget,
   });
 }
-function imageUpload(socket, image, time, callback, { username, color }) {
+function imageUpload(socket, replyTarget, image, time, callback, { username, color }) {
   writeFile("public/tmp/imageUpload", image, (err) => {
     callback({ message: err ? "failure" : "success" });
   });
@@ -104,15 +108,18 @@ function imageUpload(socket, image, time, callback, { username, color }) {
   socket.broadcast.emit("imageUpload", {
     src: image.toString("base64"),
     type: "stranger",
-    nick: username,
     time: time,
+    nick: username,
     color: color,
+    reply: replyTarget,
   });
   socket.emit("imageUpload", {
     src: image.toString("base64"),
     type: "you",
     time: time,
     nick: username,
+    color: color,
+    reply: replyTarget,
   });
 }
 function validateUsername(username) {
