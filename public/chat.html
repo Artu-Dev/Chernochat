@@ -24,9 +24,15 @@
       rel="stylesheet"
     />
 
+    <link rel="stylesheet" type="text/css" href="css/global.css">
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/erro.css" />
     <link rel="stylesheet" type="text/css" href="css/replybox.css" />
+
+    <script 
+      src="https://unpkg.com/twemoji@14.0.2/dist/twemoji.min.js"
+      crossorigin="anonymous">
+    </script>
   </head>
 
   <body>
@@ -55,15 +61,17 @@
             id="inputImg"
             type="file"
             size="10"
-            name="uploadImg"
+            name="image"
             accept=".jpg, .png, .jpeg, .gif"
           />
         </label>
         <input
           id="inputText"
           type="text"
+          maxlength="450" 
           placeholder="Digite sua Mensagem"
-          name="inputText"
+          name="message"
+          autocomplete="off"
         />
         <button id="submitBtn">
           Enviar <i class="fa-solid fa-paper-plane"></i>
@@ -83,5 +91,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <!-- JS -->
     <script src="js/index.js"></script>
+    <script>
+    </script>
   </body>
 </html>

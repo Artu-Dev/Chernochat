@@ -31,7 +31,7 @@ function createReply(reply) {
   const fragment = document.createDocumentFragment();
   const replyContainer = document.createElement("div");
   const replyUser = document.createElement("p");
-  const replyMsg = document.createElement("p");
+  const replyMsg = document.createElement("div");
 
   replyContainer.classList.add('ChatReplyContainer');
   replyUser.classList.add('ChatReplyUser');
@@ -43,6 +43,7 @@ function createReply(reply) {
     replyMsg.appendChild(cloneImg);
   } else {
     replyMsg.textContent = reply.msg;
+    twemoji.parse(replyMsg, {folder: 'svg', ext: '.svg'});
   }
 
   replyUser.textContent = reply.username;
@@ -63,7 +64,7 @@ function closeReply() {
 function createChatFragment(type, msg, username, time, color, reply) {
   const fragment = document.createDocumentFragment();
   const container = document.createElement("li");
-  const p = document.createElement("p");
+  const msgContainer = document.createElement("p");
   const userDiv = document.createElement("div");
   const timeDiv = document.createElement("div");
   const replyIcon = document.createElement("i");
@@ -78,8 +79,8 @@ function createChatFragment(type, msg, username, time, color, reply) {
     msg.setAttribute('data', username+time);
     fragment.appendChild(msg);
   } else {
-    p.textContent = msg;
-    fragment.appendChild(p);
+    msgContainer.textContent = msg;
+    fragment.appendChild(msgContainer);
   }
 
   userDiv.classList.add("username");
@@ -96,12 +97,13 @@ function createChatFragment(type, msg, username, time, color, reply) {
   fragment.appendChild(timeDiv);
 
   replyIcon.addEventListener("click", () => {
-    printReplyInput(username, msg, color);
+    printReplyInterface(username, msg, color);
     replyTarget = {username, msg, color};
     textInput.focus();
   });
-  container.appendChild(fragment);
 
+  container.appendChild(fragment);
+  twemoji.parse(msgContainer, {folder: 'svg', ext: '.svg'});
   return container;
 }
 
@@ -128,13 +130,14 @@ function printChat(type, msg, username, time, color, reply) {
   window.scrollTo(0, document.body.scrollHeight);
 }
 
-function printReplyInput(username, msg, color) {
+function printReplyInterface(username, msg, color) {
   if (msg instanceof HTMLElement) {
     const imgClone = msg.cloneNode(true);
     replyMsg.innerHTML = '';
     replyMsg.append(imgClone);
   } else {
     replyMsg.textContent = msg;
+    twemoji.parse(replyMsg, {folder: 'svg', ext: '.svg'});
   };
 
   replyName.textContent = username;
@@ -166,7 +169,6 @@ function isTypingDebounce(func, delay) {
 }
 
 function sendIsTyping(value) {
-  console.log(value);
   socket.emit('isTyping', value)
 }
 

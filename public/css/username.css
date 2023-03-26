@@ -5,10 +5,19 @@
   --gray: #312e47;
   --yellow: #F8F988;
 }
+
 body {
   height: 100vh;
+}
+
+main.usernameMain {
+  margin: 0 auto;
+  max-width: 600px;
+  height: 100%;
+  text-align: center;
+  display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
 h1 {
@@ -21,11 +30,6 @@ h1 {
 
 h1 span {
   color: var(--purple);
-}
-
-main{
-  max-width: 600px;
-  text-align: center;
 }
 
 form {
@@ -82,4 +86,24 @@ form button:hover {
   color: var(--black);
   border-radius: 1rem 0 1rem 1rem;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+footer {
+  width: 100%;
+  background: var(--white);
+  padding: 2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+footer a {
+  color: var(--purple);
+  padding-bottom: .5rem;
+  font-weight: 700;
+}
+
+footer p {
+  font-size: .9rem;
+  line-height: 1.5rem;
+  color: var(--gray);
 }

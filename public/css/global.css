@@ -1,0 +1,29 @@
+:root {
+  --purple: #865DFF;
+  --pink: #E384FF;
+  --black: #191825;
+  --whiteP: #EAEAEA;
+  
+  --white: #f0f8ff;
+  --gray: #312e47;
+  --gray2: #545261;
+
+  --purple2: #e8e1ff;
+  --yellow: #F8F988;
+}
+
+::selection {
+  background: var(--purple);
+  color: var(--white);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+body {
+  background: var(--black);
+}
