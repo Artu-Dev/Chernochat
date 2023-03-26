@@ -43,7 +43,7 @@ function createReply(reply) {
     replyMsg.appendChild(cloneImg);
   } else {
     replyMsg.textContent = reply.msg;
-    twemoji.parse(replyMsg, {folder: 'svg', ext: '.svg'});
+    // twemoji.parse(replyMsg, {folder: 'svg', ext: '.svg'});
   }
 
   replyUser.textContent = reply.username;
@@ -103,7 +103,7 @@ function createChatFragment(type, msg, username, time, color, reply) {
   });
 
   container.appendChild(fragment);
-  twemoji.parse(msgContainer, {folder: 'svg', ext: '.svg'});
+  // twemoji.parse(msgContainer, {folder: 'svg', ext: '.svg'});
   return container;
 }
 
@@ -137,7 +137,7 @@ function printReplyInterface(username, msg, color) {
     replyMsg.append(imgClone);
   } else {
     replyMsg.textContent = msg;
-    twemoji.parse(replyMsg, {folder: 'svg', ext: '.svg'});
+    // twemoji.parse(replyMsg, {folder: 'svg', ext: '.svg'});
   };
 
   replyName.textContent = username;
