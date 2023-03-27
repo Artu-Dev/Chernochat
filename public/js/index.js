@@ -9,6 +9,7 @@ const replyContent = document.querySelector(".replyBox"),
       replyName = replyContent.querySelector('.replyName'),
       replyMsg = replyContent.querySelector('.replymsg'),
       replyCloseBtn = document.querySelector(".fa-close");
+      usersOnDiv = document.querySelector("#usersOn");
 
 const socket = io();
 const options = {
@@ -25,6 +26,11 @@ const color = urlParams.get("color");
 var replyTarget = ''; 
 
 //-----------------------Functions
+
+
+function updateUsersON(usersON) {
+  usersOnDiv.textContent = usersON;
+}
 
 function createReply(reply) {
   console.log(reply);
@@ -43,7 +49,7 @@ function createReply(reply) {
     replyMsg.appendChild(cloneImg);
   } else {
     replyMsg.textContent = reply.msg;
-    // twemoji.parse(replyMsg, {folder: 'svg', ext: '.svg'});
+                                twemoji.parse(replyMsg, {folder: 'svg', ext: '.svg'});
   }
 
   replyUser.textContent = reply.username;
@@ -103,7 +109,7 @@ function createChatFragment(type, msg, username, time, color, reply) {
   });
 
   container.appendChild(fragment);
-  // twemoji.parse(msgContainer, {folder: 'svg', ext: '.svg'});
+                    twemoji.parse(msgContainer, {folder: 'svg', ext: '.svg'});
   return container;
 }
 
@@ -137,7 +143,7 @@ function printReplyInterface(username, msg, color) {
     replyMsg.append(imgClone);
   } else {
     replyMsg.textContent = msg;
-    // twemoji.parse(replyMsg, {folder: 'svg', ext: '.svg'});
+                                    twemoji.parse(replyMsg, {folder: 'svg', ext: '.svg'});
   };
 
   replyName.textContent = username;
@@ -274,6 +280,10 @@ socket.on("chat message", ({ type, msg, nick, time, color, reply }) => {
 socket.on("imageUpload", ({ src, type, nick, time, color, reply }) => {
   const img = baseToImg(src);
   printChat(type, img, nick, time, color, reply);
+});
+
+socket.on("usersON", (usersON) => {
+  updateUsersON(usersON);
 });
 
 socket.on("connected", (msg) => {

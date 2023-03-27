@@ -24,6 +24,38 @@ body {
   justify-content: center;
 }
 
+.usersOn-container,
+.messages .configButton,
+.isTypingBar,
+form #submitBtn,
+form .imgLabel {
+  transition: ease .3s;
+}
+
+
+.usersOn-container {
+  background: var(--purple);
+  color: var(--whiteP);
+  display: flex;
+  padding: .5rem 1.5rem;
+  border-radius: 1rem;
+  position: fixed;
+  margin: .5rem;
+  font-size: .8rem;
+  font-weight: 700;
+  opacity: .7;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.usersOn-container:hover {
+  opacity: 0;
+}
+
+#usersOn {
+  padding-left: .4rem;
+}
+
 #messageForm {
   background: var(--whiteP);
   padding: 1rem;
@@ -45,7 +77,6 @@ body {
   width: 100%;
   padding: .3rem;
   top: 0;
-  transition: ease .3s;
   box-shadow: 0 7px 15px rgba(0, 0, 0, 0.15);
 }
 
@@ -62,7 +93,6 @@ form .imgLabel {
   font-size: 1rem;
   font-weight: 700;
   color: var(--white);
-  transition: ease .3s;
   text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
   white-space: nowrap;
   cursor: pointer;
@@ -130,7 +160,6 @@ section {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-bottom: .5rem;
 }
 
 .messages li.you,
@@ -219,7 +248,6 @@ section {
   color: var(--whiteP);
   opacity: .7;
   cursor: pointer;
-  transition: ease .3s;
   transform: scaleY(-1);
 }
 

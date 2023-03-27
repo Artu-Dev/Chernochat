@@ -48,26 +48,23 @@ io.use((socket, next) => {
 });
 
 io.on("connection", (socket) => {
-  socket.emit("connection");
-  console.log("usuario conectado: "+socket.id);
-
   const username = socket.handshake.auth.username;
   const color = socket.handshake.auth.color;
 
-  socket.broadcast.emit("connected", `${username} conectado`);
+  socket.emit("connection");
+  console.log("usuario conectado: "+socket.id);
+  usersON(socket);
 
+  socket.broadcast.emit("connected", `${username} conectado`);
   socket.on("chat message", (msg, time, replyTarget) =>
     chatMessage(socket, replyTarget, msg, time, { username, color })
   );
-
   socket.on("imageUpload", (replyTarget, image, time, callback) =>
     imageUpload(socket, replyTarget, image, time, callback, { username, color })
   );
-
   socket.on("isTyping", (isTyping) => {
     socket.broadcast.emit("isTyping", { isTyping, username });
   });
-
   socket.on("disconnect", () => disconnect(socket, username));
 });
 
@@ -78,8 +75,10 @@ server.listen(port, () => {
 
 function disconnect(socket, username) {
   socket.broadcast.emit("logOut", `${username} desconectado`);
-  console.log("a user disconnected");
   delete userData[socket.id];
+  usersON(socket);
+  
+  console.log("a user disconnected");
   console.log(userData);
 }
 function chatMessage(socket, replyTarget, msg, time, { username, color }) {
@@ -141,4 +140,9 @@ function validateUsername(username) {
   }
 
   return null; //se o username for valido, retorna null
+}
+function usersON (socket) {
+  const usersLength = Object.keys(userData).length;
+  socket.emit('usersON', usersLength)
+  socket.broadcast.emit('usersON', usersLength)
 }
