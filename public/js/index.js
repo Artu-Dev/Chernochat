@@ -33,7 +33,6 @@ function updateUsersON(usersON) {
 }
 
 function createReply(reply) {
-  console.log(reply);
   const fragment = document.createDocumentFragment();
   const replyContainer = document.createElement("div");
   const replyUser = document.createElement("p");
@@ -77,7 +76,6 @@ function createChatFragment(type, msg, username, time, color, reply) {
 
   if(reply) {
     const replyContainer = createReply(reply);
-    console.log(replyContainer);
     fragment.appendChild(replyContainer);
   }
 
