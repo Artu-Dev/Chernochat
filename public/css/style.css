@@ -58,6 +58,7 @@ form .imgLabel {
 
 #messageForm {
   background: var(--whiteP);
+  border-radius: 2.7rem;
   padding: 1rem;
   position: fixed;
   width: 100%;
