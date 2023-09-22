@@ -33,7 +33,7 @@ Se você quiser contribuir para o projeto, sinta-se livre para abrir uma issue o
 
 Agradeço à seguintes pessoas por suas contribuições para este projeto:
 
-- **[Guilherme Santos](https://github.com/nome-do-colaborador](https://github.com/OwlGuilherme)**
+- ** [GuilhermeSantos](https://github.com/OwlGuilherme) **
   - Fez a remoção de um trecho repetido no README.md.
   - Realizou uma alteração nas bordas do messageForm para integrá-lo melhor ao design do site.
 
