@@ -30,6 +30,14 @@ Ao entrar no chat, você poderá escolher um username e começar a enviar mensag
 
 Se você quiser contribuir para o projeto, sinta-se livre para abrir uma issue ou enviar um pull request.
 
+
+Agradeço à seguintes pessoas por suas contribuições para este projeto:
+
+- **[Guilherme Santos](https://github.com/nome-do-colaborador](https://github.com/OwlGuilherme)**
+  - Fez a remoção de um trecho repetido no README.md.
+  - Realizou uma alteração nas bordas do messageForm para integrá-lo melhor ao design do site.
+
+
 ## Licença
 
 Este projeto é licenciado sob a Licença MIT - veja o arquivo [LICENSE.md](https://github.com/<seu-usuario>/chernochat/blob/main/LICENSE) para mais detalhes.
